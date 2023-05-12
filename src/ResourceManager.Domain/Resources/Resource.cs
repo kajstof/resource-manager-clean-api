@@ -69,6 +69,11 @@ public class Resource : IAggregateRoot
     public void Unlock(string username, DateTimeOffset currentDate)
     {
         // Validation
+        if (IsWithdrawn)
+        {
+            throw new ResourceIsWithdrawnException();
+        }
+        
         if (!IsLockedAtTheMoment(currentDate))
         {
             throw new ResourceNotLockedException();

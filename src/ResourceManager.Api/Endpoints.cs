@@ -24,9 +24,17 @@ public static class Endpoints
         // Locking resource
         app.MapPut(
             "resource/{id}/lock",
-            async (Guid id, [FromQuery] TimeSpan timeSpan, IMediator mediator, ClaimsPrincipal user, CancellationToken ct) =>
+            async (Guid id, [FromQuery] DateTimeOffset? validTo, IMediator mediator, ClaimsPrincipal user,
+                CancellationToken ct) =>
             {
-                return Results.Ok();
+                LockResourceCommand command = new()
+                {
+                    Id = id,
+                    DateTimeOffset = validTo ?? DateTimeOffset.MaxValue,
+                    Username = user.Identity?.Name ?? throw new InvalidOperationException()
+                };
+                ResourceDto resourceDto = await mediator.Send(command, ct);
+                return Results.CreatedAtRoute("GetResourceById", new { id = resourceDto.Id }, resourceDto);
             }).RequireAuthorization(policy => policy.RequireRole("admin", "user"));
 
         // -------------------------------------------------------------------------------------------------------------
@@ -35,16 +43,23 @@ public static class Endpoints
             "resource/{id}/unlock",
             async (Guid id, IMediator mediator, ClaimsPrincipal user, CancellationToken ct) =>
             {
-                return Results.Ok();
+                UnlockResourceCommand command = new()
+                {
+                    Id = id,
+                    Username = user.Identity?.Name ?? throw new InvalidOperationException()
+                };
+                ResourceDto resourceDto = await mediator.Send(command, ct);
+                return Results.CreatedAtRoute("GetResourceById", new { id = resourceDto.Id }, resourceDto);
             }).RequireAuthorization(policy => policy.RequireRole("admin", "user"));
 
         // -------------------------------------------------------------------------------------------------------------
         // Withdraw resource
         app.MapPut(
-            "resource/{id}",
-            async (Guid id, WithdrawResourceCommand command, IMediator mediator, CancellationToken ct) =>
+            "resource/{id}/withdraw",
+            async (Guid id, IMediator mediator, CancellationToken ct) =>
             {
-                return Results.Ok();
+                ResourceDto resourceDto = await mediator.Send(new WithdrawResourceCommand { Id = id }, ct);
+                return Results.CreatedAtRoute("GetResourceById", new { id = resourceDto.Id }, resourceDto);
             }).RequireAuthorization(policy => policy.RequireRole("admin"));
 
         // -------------------------------------------------------------------------------------------------------------

@@ -170,6 +170,20 @@ public class ResourceTests
         Assert.Throws<ResourceLockedByAnotherUserException>(() =>
             resource.Unlock("elza", Constants.CurrentDate.AddHours(1)));
     }
+   
+    [Fact]
+    public void Unlock_ShouldThrown_WhenResourceIsWithdrawn()
+    {
+        // Arrange
+        Resource resource = Resource.CreateNew(Constants.ResourceId, Constants.ResourceName);
+        DateTimeOffset lockingDate = Constants.CurrentDate.AddDays(1);
+        resource.LockTemporary(Constants.Username, Constants.CurrentDate, lockingDate);
+        resource.Withdraw();
+
+        // Act
+        Assert.Throws<ResourceIsWithdrawnException>(
+            () => resource.Unlock(Constants.Username, Constants.CurrentDate));
+    } 
 
     private static class Constants
     {
