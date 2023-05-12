@@ -2,13 +2,20 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{251D3253-3B8F-48BB-9C5D-80191E20DAC9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceManager.Api", "src\ResourceManager.Api\ResourceManager.Api.csproj", "{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BD5B384D-65BB-4AB9-939E-3A6ED8028A9C} = {251D3253-3B8F-48BB-9C5D-80191E20DAC9}
 	EndGlobalSection
 EndGlobal
