@@ -1,6 +1,6 @@
 ﻿using ResourceManager.Domain.Common;
 
-namespace ResourceManager.Domain.Resource;
+namespace ResourceManager.Domain.Resources;
 
 public class Lock : IEntity
 {

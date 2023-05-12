@@ -2,7 +2,7 @@
 using MediatR;
 using ResourceManager.Application.Common.Interfaces;
 using ResourceManager.Application.DTOs;
-using ResourceManager.Domain.Resource;
+using ResourceManager.Domain.Resources;
 
 namespace ResourceManager.Application.Resources.Queries;
 
@@ -28,7 +28,8 @@ public class GetResourceQueryHandler : IRequestHandler<GetResourceQuery, Resourc
         Resource resource = await _resourceDbContext.Resources.FindAsync(query.Id)
                             ?? throw new InvalidOperationException("There's no resource with this id");
 
+        DateTimeOffset now = DateTimeOffset.Now;
         return new ResourceDto(
-            resource.Id, resource.Name, resource.IsBlockedAtTheMoment(DateTimeOffset.Now), resource.BlockedTo);
+            resource.Id, resource.Name, resource.IsLockedAtTheMoment(now), resource.LockedTo(now));
     }
 }

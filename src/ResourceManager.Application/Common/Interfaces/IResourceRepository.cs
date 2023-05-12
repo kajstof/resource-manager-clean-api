@@ -1,4 +1,4 @@
-using ResourceManager.Domain.Resource;
+using ResourceManager.Domain.Resources;
 
 namespace ResourceManager.Application.Common.Interfaces;
 

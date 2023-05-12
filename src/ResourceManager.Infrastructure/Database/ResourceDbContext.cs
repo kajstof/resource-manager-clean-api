@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ResourceManager.Application.Common.Interfaces;
-using ResourceManager.Domain.Resource;
+using ResourceManager.Domain.Resources;
 
 namespace ResourceManager.Infrastructure.Database;
 
@@ -22,7 +22,6 @@ public class ResourceDbContext : DbContext, IResourceDbContext
         {
             entity.HasIndex(e => e.Id);
             entity.OwnsMany(p => p.Locks);
-            entity.Ignore(p => p.BlockedTo);
             entity.Property(p => p.RowVersion).IsRowVersion();
         }).HasDefaultSchema(SchemaName);
     }
