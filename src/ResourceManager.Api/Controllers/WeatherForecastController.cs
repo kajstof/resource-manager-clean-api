@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ResourceManager.Api.Controllers;
 
 [ApiController]
+[Authorize(Roles = "admin")]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
