@@ -19,7 +19,11 @@ public class ResourceDbContext : DbContext, IResourceDbContext
         base.OnModelCreating(builder);
 
         builder.Entity<Resource>(entity =>
-            entity.HasIndex(e => e.Id)
-        ).HasDefaultSchema(SchemaName);
+        {
+            entity.HasIndex(e => e.Id);
+            entity.OwnsMany(p => p.Locks);
+            entity.Ignore(p => p.BlockedTo);
+            entity.Property(p => p.RowVersion).IsRowVersion();
+        }).HasDefaultSchema(SchemaName);
     }
 }

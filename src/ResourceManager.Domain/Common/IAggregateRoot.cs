@@ -1,6 +1,5 @@
 namespace ResourceManager.Domain.Common;
 
-public interface IAggregateRoot
+public interface IAggregateRoot : IEntity
 {
-    Guid Id { get; }
 }

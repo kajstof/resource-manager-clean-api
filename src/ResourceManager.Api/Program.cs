@@ -1,3 +1,4 @@
+using ResourceManager.Api;
 using ResourceManager.Api.Extensions;
 using ResourceManager.Application.DependencyInjection;
 using ResourceManager.Infrastructure.DependencyInjection;
@@ -7,7 +8,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAuthentication().AddJwtBearer();
 builder.Services.AddAuthorization();
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerWithAuthentication();
 builder.Services.AddApplication();
@@ -24,6 +24,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers();
 
+app.MapResourcesEndpoints();
 app.Run();
