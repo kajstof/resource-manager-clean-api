@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceManager.Domain", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{86CE0D52-EB7C-4953-8A8A-BFA98B4BB8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceManager.Domain.UnitTests", "ResourceManager.Domain.UnitTests\ResourceManager.Domain.UnitTests.csproj", "{9A3EF362-630C-41BA-9526-385C0CB7E2A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceManager.Domain.UnitTests", "tests\ResourceManager.Domain.UnitTests\ResourceManager.Domain.UnitTests.csproj", "{9A3EF362-630C-41BA-9526-385C0CB7E2A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
