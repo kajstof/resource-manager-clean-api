@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using ResourceManager.Api.Database;
+﻿using Microsoft.OpenApi.Models;
 
 namespace ResourceManager.Api.Extensions;
 
@@ -42,22 +39,5 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
-    }
-
-    public static IServiceCollection AddApplicationContext(
-        this IServiceCollection serviceCollection, string? connectionString)
-    {
-        if (connectionString.IsNullOrEmpty())
-        {
-            throw new ArgumentNullException(nameof(connectionString));
-        }
-
-        serviceCollection.AddDbContext<ResourceDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-            options.UseSnakeCaseNamingConvention();
-        });
-
-        return serviceCollection;
     }
 }

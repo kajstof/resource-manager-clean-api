@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ResourceManager.Api.Models;
+using ResourceManager.Application.Common.Interfaces;
+using ResourceManager.Domain.Resource;
 
-namespace ResourceManager.Api.Database;
+namespace ResourceManager.Infrastructure.Database;
 
-public class ResourceDbContext : DbContext
+public class ResourceDbContext : DbContext, IResourceDbContext
 {
     private const string SchemaName = "public";
 
@@ -19,6 +20,6 @@ public class ResourceDbContext : DbContext
 
         builder.Entity<Resource>(entity =>
             entity.HasIndex(e => e.Id)
-        );
+        ).HasDefaultSchema(SchemaName);
     }
 }
