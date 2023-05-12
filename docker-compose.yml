@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: resource-manager-postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: resource-manager-pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@postgres.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-postgres}
+    ports:
+      - "5433:80"
+
+  adminer:
+    container_name: resource-manager-adminer
+    image: adminer:latest
+    restart: always
+    ports:
+      - "5434:8080"
