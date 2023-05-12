@@ -36,6 +36,24 @@ dotnet ef database update
 ### Creating secrets (instead configuration in `appsettings.json`)
 
 ```bash
+cd ResourceManager/src/ResourceManager.Api
 dotnet user-secrets init
 dotnet user-secrets set "ConnectionStrings:ApplicationContext" "Host=localhost;Database=postgres;Username=postgres;Password=postgres" 
+```
+
+### Generating tokens for users
+
+For example:
+
+```bash
+cd ResourceManager/src/ResourceManager.Api
+dotnet user-jwts create --name anna --role admin --role user
+dotnet user-jwts create --name elza --role user
+dotnet user-jwts create --name olaf --role user
+```
+
+These tokens can be retrieved later:
+
+```bash
+dotnet user-jwts list
 ```
