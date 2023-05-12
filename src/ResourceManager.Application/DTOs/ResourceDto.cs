@@ -1,3 +1,15 @@
-﻿namespace ResourceManager.Application.DTOs;
+﻿using ResourceManager.Domain.Resources;
 
-public record ResourceDto(Guid Id, string Name, bool IsBlocked, DateTimeOffset? BlockedTo);
+namespace ResourceManager.Application.DTOs;
+
+public record ResourceDto(Guid Id, string Name, bool IsLocked, DateTimeOffset? LockedTo)
+{
+    public static ResourceDto FromResource(Resource resource, DateTimeOffset currentDate)
+    {
+        return new ResourceDto(
+            resource.Id,
+            resource.Name,
+            resource.IsLockedAtTheMoment(currentDate),
+            resource.LockedTo(currentDate));
+    }
+};

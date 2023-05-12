@@ -83,6 +83,7 @@ public class Resource : IAggregateRoot
         GetValidLocks(currentDate).MaxBy(x => x.ValidTo)!.Invalidate();
     }
 
+    // TODO: Maybe `Archive` would be a better name?
     public void Withdraw()
     {
         if (IsWithdrawn)

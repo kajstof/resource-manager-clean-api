@@ -27,13 +27,11 @@ public class GetResourceQueryHandler : IRequestHandler<GetResourceQuery, Resourc
         _dateTimeProvider = dateTimeProvider;
     }
 
-    public async Task<ResourceDto> Handle(GetResourceQuery query, CancellationToken cancellationToken)
+    public async Task<ResourceDto> Handle(GetResourceQuery query, CancellationToken ct)
     {
         Resource resource = await _resourceDbContext.Resources.FindAsync(query.Id)
                             ?? throw new ApplicationLogicException("There's no resource with this id");
-
-        DateTimeOffset now = _dateTimeProvider.Now;
-        return new ResourceDto(
-            resource.Id, resource.Name, resource.IsLockedAtTheMoment(now), resource.LockedTo(now));
+        await _resourceDbContext.Resources.AddAsync(resource, ct);
+        return ResourceDto.FromResource(resource, _dateTimeProvider.Now);
     }
 }

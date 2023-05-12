@@ -1,0 +1,18 @@
+### Get the resource
+
+GET https://localhost:7039/resource/{{resourceId}}
+Accept: application/json
+Authorization: Bearer {{auth_token}}
+
+### Add a resource
+
+POST https://localhost:7039/resource/
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+
+{
+  "name": "resource-name-#{{$random.alphanumeric()}}"
+}
+
+###
