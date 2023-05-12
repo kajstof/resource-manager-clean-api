@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ResourceManager.Application.Common.Interfaces;
+using ResourceManager.Infrastructure.Common;
 using ResourceManager.Infrastructure.Database;
 
 namespace ResourceManager.Infrastructure.DependencyInjection;
@@ -23,6 +24,8 @@ public static class ServiceCollectionExtensions
             options.UseSnakeCaseNamingConvention();
         });
         services.AddScoped<IResourceDbContext>(provider => provider.GetRequiredService<ResourceDbContext>());
+
+        services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }

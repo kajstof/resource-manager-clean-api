@@ -24,13 +24,13 @@ dotnet tool install -g dotnet-ef
 #### Creating migration
 
 ```bash
-dotnet ef migrations add InitialMigration
+dotnet ef migrations add InitialMigrate -p src/ResourceManager.Infrastructure -s src/ResourceManager.Api --context ResourceDbContext
 ```
 
 #### Performing migrations
 
 ```bash
-dotnet ef database update
+dotnet ef database update -p src/ResourceManager.Infrastructure -s src/ResourceManager.Api --context ResourceDbContext
 ```
 
 ### Creating secrets (instead configuration in `appsettings.json`)

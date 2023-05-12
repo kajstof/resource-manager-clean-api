@@ -20,8 +20,13 @@ public class ResourceDbContext : DbContext, IResourceDbContext
 
         builder.Entity<Resource>(entity =>
         {
-            entity.HasIndex(e => e.Id);
-            entity.OwnsMany(p => p.Locks);
+            entity.HasIndex(x => x.Id);
+            entity.OwnsMany(x => x.Locks, y =>
+            {
+                y.ToTable("items");
+                y.WithOwner().HasForeignKey("resource_id");
+                y.HasIndex(z => z.Id);
+            });
             entity.Property(p => p.RowVersion).IsRowVersion();
         }).HasDefaultSchema(SchemaName);
     }
