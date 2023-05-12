@@ -1,4 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using ResourceManager.Api.Database;
 
 namespace ResourceManager.Api.Extensions;
 
@@ -18,7 +21,9 @@ public static class ServiceCollectionExtensions
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
-                Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+                Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n "
+                              + "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n"
+                              + "Example: \"Bearer 1safsfsdfdfd\"",
             });
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
@@ -37,5 +42,22 @@ public static class ServiceCollectionExtensions
         });
 
         return services;
+    }
+
+    public static IServiceCollection AddApplicationContext(
+        this IServiceCollection serviceCollection, string? connectionString)
+    {
+        if (connectionString.IsNullOrEmpty())
+        {
+            throw new ArgumentNullException(nameof(connectionString));
+        }
+
+        serviceCollection.AddDbContext<ResourceDbContext>(options =>
+        {
+            options.UseNpgsql(connectionString);
+            options.UseSnakeCaseNamingConvention();
+        });
+
+        return serviceCollection;
     }
 }

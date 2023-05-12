@@ -8,6 +8,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerWithAuthentication();
+builder.Services.AddApplicationContext(builder.Configuration.GetConnectionString("ResourceDbContext"));
 
 var app = builder.Build();
 

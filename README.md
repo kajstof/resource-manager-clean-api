@@ -38,7 +38,13 @@ dotnet ef database update
 ```bash
 cd ResourceManager/src/ResourceManager.Api
 dotnet user-secrets init
-dotnet user-secrets set "ConnectionStrings:ApplicationContext" "Host=localhost;Database=postgres;Username=postgres;Password=postgres" 
+dotnet user-secrets set "ConnectionStrings:ResourceDbContext" "Host=localhost;Database=postgres;Username=postgres;Password=postgres" 
+```
+
+To list secrets:
+
+```bash
+dotnet user-secrets list
 ```
 
 ### Generating tokens for users
@@ -52,8 +58,8 @@ dotnet user-jwts create --name elza --role user
 dotnet user-jwts create --name olaf --role user
 ```
 
-These tokens can be retrieved later:
+To list tokens:
 
 ```bash
-dotnet user-jwts list
+dotnet user-jwts list --json
 ```
