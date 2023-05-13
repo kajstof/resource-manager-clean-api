@@ -33,7 +33,7 @@ dotnet ef migrations add InitialMigrate -p src/ResourceManager.Infrastructure -s
 dotnet ef database update -p src/ResourceManager.Infrastructure -s src/ResourceManager.Api --context ResourceDbContext
 ```
 
-### Creating secrets (instead configuration in `appsettings.json`)
+### Creating secrets (instead of configuration in `appsettings.json`)
 
 ```bash
 cd ResourceManager/src/ResourceManager.Api
@@ -61,5 +61,5 @@ dotnet user-jwts create --name olaf --role user
 To list tokens:
 
 ```bash
-dotnet user-jwts list --json
+dotnet user-jwts list --output json
 ```

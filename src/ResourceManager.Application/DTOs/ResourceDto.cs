@@ -2,14 +2,27 @@
 
 namespace ResourceManager.Application.DTOs;
 
-public record ResourceDto(Guid Id, string Name, bool IsLocked, DateTimeOffset? LockedTo)
+public class ResourceDto
 {
     public static ResourceDto FromResource(Resource resource, DateTimeOffset currentDate)
     {
-        return new ResourceDto(
-            resource.Id,
-            resource.Name,
-            resource.IsLockedAtTheMoment(currentDate),
-            resource.LockedTo(currentDate));
+        return new ResourceDto
+        {
+            Id = resource.Id,
+            Name = resource.Name,
+            IsLocked = resource.IsLockedAtTheMoment(currentDate),
+            LockedTo = resource.LockedTo(currentDate),
+            IsWithdrawn = resource.IsWithdrawn
+        };
     }
+
+    public Guid Id { get; init; }
+
+    public string Name { get; init; } = null!;
+
+    public bool IsLocked { get; init; }
+
+    public DateTimeOffset? LockedTo { get; init; }
+
+    public bool IsWithdrawn { get; init; }
 };
