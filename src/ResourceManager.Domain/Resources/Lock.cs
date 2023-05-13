@@ -22,7 +22,7 @@ public class Lock : IEntity
         {
             Id = Guid.NewGuid(),
             IsValid = true,
-            ValidTo = validTo,
+            ValidTo = validTo.ToUniversalTime(),
             Username = username
         };
     }

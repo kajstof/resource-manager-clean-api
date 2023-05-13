@@ -30,9 +30,7 @@ public class Resource : IAggregateRoot
     }
 
     public void LockPermanently(string username, DateTimeOffset currentDate)
-    {
-        LockTemporary(username, currentDate, DateTimeOffset.MaxValue);
-    }
+        => LockTemporary(username, currentDate, DateTimeOffset.MaxValue);
 
     public void LockTemporary(string username, DateTimeOffset currentDate, DateTimeOffset lockingDate)
     {
@@ -73,7 +71,7 @@ public class Resource : IAggregateRoot
         {
             throw new ResourceIsWithdrawnException();
         }
-        
+
         if (!IsLockedAtTheMoment(currentDate))
         {
             throw new ResourceNotLockedException();
