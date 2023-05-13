@@ -2,6 +2,7 @@ using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using ResourceManager.Api.Extensions;
+using ResourceManager.Api.Middlewares;
 using ResourceManager.Application.DependencyInjection;
 using ResourceManager.Application.DTOs;
 using ResourceManager.Application.Resources.Commands;
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ApplicationAndDomainExceptionHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
