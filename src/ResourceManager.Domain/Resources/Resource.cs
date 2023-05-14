@@ -11,9 +11,9 @@ public class Resource : IAggregateRoot
 
     public bool IsWithdrawn { get; private set; }
 
-    public ICollection<Lock> Locks { get; } = new List<Lock>();
-
     public uint RowVersion { get; private set; }
+
+    private readonly ICollection<Lock> _locks = new List<Lock>();
 
     private Resource()
     {
@@ -61,7 +61,7 @@ public class Resource : IAggregateRoot
             LatestLock(currentDate)!.Invalidate();
         }
 
-        Locks.Add(Lock.CreateNew(username, lockingDate));
+        _locks.Add(Lock.CreateNew(username, lockingDate));
     }
 
     public void Unlock(string username, DateTimeOffset currentDate)
@@ -110,5 +110,5 @@ public class Resource : IAggregateRoot
         => GetValidLocks(validationDate).Any(x => !x.Username.Equals(username));
 
     private IEnumerable<Lock> GetValidLocks(DateTimeOffset validationDate)
-        => Locks.Where(x => x.IsValid && x.ValidTo > validationDate);
+        => _locks.Where(x => x.IsValid && x.ValidTo > validationDate);
 }

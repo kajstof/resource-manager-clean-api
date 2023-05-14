@@ -56,7 +56,7 @@ namespace ResourceManager.Infrastructure.Migrations
 
             modelBuilder.Entity("ResourceManager.Domain.Resources.Resource", b =>
                 {
-                    b.OwnsMany("ResourceManager.Domain.Resources.Lock", "Locks", b1 =>
+                    b.OwnsMany("ResourceManager.Domain.Resources.Lock", "_locks", b1 =>
                         {
                             b1.Property<Guid>("resource_id")
                                 .HasColumnType("uuid")
@@ -81,19 +81,19 @@ namespace ResourceManager.Infrastructure.Migrations
                                 .HasColumnName("valid_to");
 
                             b1.HasKey("resource_id", "Id")
-                                .HasName("pk_items");
+                                .HasName("pk_locks");
 
                             b1.HasIndex("Id")
-                                .HasDatabaseName("ix_items_id");
+                                .HasDatabaseName("ix_locks_id");
 
-                            b1.ToTable("items", "public");
+                            b1.ToTable("locks", "public");
 
                             b1.WithOwner()
                                 .HasForeignKey("resource_id")
-                                .HasConstraintName("fk_items_resources_resource_id");
+                                .HasConstraintName("fk_locks_resources_resource_id");
                         });
 
-                    b.Navigation("Locks");
+                    b.Navigation("_locks");
                 });
 #pragma warning restore 612, 618
         }

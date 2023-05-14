@@ -30,7 +30,7 @@ namespace ResourceManager.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "items",
+                name: "locks",
                 schema: "public",
                 columns: table => new
                 {
@@ -42,9 +42,9 @@ namespace ResourceManager.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_items", x => new { x.resource_id, x.id });
+                    table.PrimaryKey("pk_locks", x => new { x.resource_id, x.id });
                     table.ForeignKey(
-                        name: "fk_items_resources_resource_id",
+                        name: "fk_locks_resources_resource_id",
                         column: x => x.resource_id,
                         principalSchema: "public",
                         principalTable: "resources",
@@ -53,9 +53,9 @@ namespace ResourceManager.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_items_id",
+                name: "ix_locks_id",
                 schema: "public",
-                table: "items",
+                table: "locks",
                 column: "id");
 
             migrationBuilder.CreateIndex(
@@ -69,7 +69,7 @@ namespace ResourceManager.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "items",
+                name: "locks",
                 schema: "public");
 
             migrationBuilder.DropTable(

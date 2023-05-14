@@ -21,11 +21,11 @@ public class ResourceDbContext : DbContext, IResourceDbContext
         builder.Entity<Resource>(entity =>
         {
             entity.HasIndex(x => x.Id);
-            entity.OwnsMany(x => x.Locks, y =>
+            entity.OwnsMany<Lock>("_locks", b =>
             {
-                y.ToTable("items");
-                y.WithOwner().HasForeignKey("resource_id");
-                y.HasIndex(z => z.Id);
+                b.ToTable("locks");
+                b.WithOwner().HasForeignKey("resource_id");
+                b.HasIndex(y => y.Id);
             });
             entity.Property(p => p.RowVersion).IsRowVersion();
         }).HasDefaultSchema(SchemaName);
