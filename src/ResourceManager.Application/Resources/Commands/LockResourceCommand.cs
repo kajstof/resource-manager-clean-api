@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ResourceManager.Application.Common;
 using ResourceManager.Application.Common.Interfaces;
 using ResourceManager.Application.DTOs;
@@ -32,16 +33,22 @@ public class LockResourceCommandHandler : IRequestHandler<LockResourceCommand, R
     }
     public async Task<ResourceDto> Handle(LockResourceCommand command, CancellationToken ct)
     {
-        Resource resource = await _resourceDbContext.Resources.FindAsync(command.Id)
-                            ?? throw new ApplicationLogicException("There's no resource with this id");
+        try
+        {
+            Resource resource = await _resourceDbContext.Resources.FindAsync(command.Id)
+                                ?? throw new ApplicationLogicException("There's no resource with this id");
 
-        DateTimeOffset now = _dateTimeProvider.Now;
-        resource.LockTemporary(command.Username, now, command.DateTimeOffset);
+            DateTimeOffset now = _dateTimeProvider.Now;
+            resource.LockTemporary(command.Username, now, command.DateTimeOffset);
 
-        _resourceDbContext.Resources.Update(resource);
-        await _resourceDbContext.SaveChangesAsync(ct);
+            _resourceDbContext.Resources.Update(resource);
+            await _resourceDbContext.SaveChangesAsync(ct);
 
-        return ResourceDto.FromResource(resource, now);
-        
+            return ResourceDto.FromResource(resource, now);
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            throw new ConcurrencyException(e);
+        }
     }
 }
